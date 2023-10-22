@@ -23,13 +23,15 @@ export default function Home() {
         <SubHeading text='Open Deals' width='1280px' color='#B29F7E' margin='50px 0 20px' />
         <ContentGrid width='1280px' gap='20px'>
           {[1, 2, 3, 4].map((i) =>
-            <DealCard image={`/Card${i}.png`}
-                      name='The Marina Torch'
-                      price={60000}
-                      yieldPercent={9.25}
-                      soldPercent={75}
-                      daysLeft={150}
-                      totalPrice={6500000}
+            <DealCard
+              key={i}
+              image={`/Card${i}.png`}
+              name='The Marina Torch'
+              price={60000}
+              yieldPercent={9.25}
+              soldPercent={75}
+              daysLeft={150}
+              totalPrice={6500000}
             />)}{/* todo load from db*/}
         </ContentGrid>
       </Section>
