@@ -1,16 +1,23 @@
 'use client';
 import { css, styled } from 'styled-components';
-import { Size } from '@/_utils/CommonCssAttributes';
+import { Color, Size } from '@/_utils/CommonCssAttributes';
 
-const StyledSection = styled.section<{ $image?: string, height?: string }>`
-  height: ${({ height }) => height || '1024px'};
+const StyledSection = styled.section<{
+  $image?: string,
+  $bgColor?: string,
+  $height?: string
+}>`
+  height: ${({ $height }) => $height || '1024px'};
+  ${({ $bgColor }) => $bgColor && css`background-color: ${$bgColor}`};
+
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  ${({ $image }) => $image && css`position: relative;
+  ${({ $image }) => $image && css`
+    position: relative;
     z-index: 1;
 
     &:before {
@@ -31,13 +38,15 @@ const StyledSection = styled.section<{ $image?: string, height?: string }>`
   }
 `;
 
-type SectionProps = Size & {
+type SectionProps = Size & Color & {
   children?: React.ReactNode,
   image?: string,
 }
-export default function Section({ children, image, height }: SectionProps) {
+export default function Section({ children, image, height, bgColor }: SectionProps) {
   return (
-    <StyledSection $image={image} height={height}>
+    <StyledSection $image={image}
+                   $height={height}
+                   $bgColor={bgColor}>
       {children}
     </StyledSection>
   );

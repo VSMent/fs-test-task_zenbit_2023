@@ -26,12 +26,17 @@ export interface Positioning {
   bottom?: string,
   left?: string,
   right?: string,
+}
 
+export interface Color {
+  color?: string,
+  bgColor?: string
 }
 
 type AllAttributes =
   Size
   & RelativeDisplacement
   & Positioning
+  & Color
 
-export default AllAttributes
+export default AllAttributes;

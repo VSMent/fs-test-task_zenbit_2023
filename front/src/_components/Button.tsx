@@ -10,11 +10,11 @@ type ButtonProps = RelativeDisplacement & Size & {
 }
 const StyledButton = styled.button<{
   $variant: ButtonStyles,
-  color: string,
+  $color: string,
   $margin?: string
 }>`
-  --_color: ${({ $variant, color }) => $variant === 'outlined' ? color : 'white'};
-  --_bgColor: ${({ $variant, color }) => $variant === 'outlined' ? 'transparent' : color};
+  --_color: ${({ $variant, $color }) => $variant === 'outlined' ? $color : 'white'};
+  --_bgColor: ${({ $variant, $color }) => $variant === 'outlined' ? 'transparent' : $color};
   display: inline-block;
   font-family: Merriweather, Arial, serif;
   font-size: 16px;
@@ -27,10 +27,11 @@ const StyledButton = styled.button<{
   height: 44px;
   padding: 11px 0;
   cursor: pointer;
+  user-select: none;
   border-radius: 5px;
   border-width: 1px;
   border-style: solid;
-  border-color: ${({ color }) => color};
+  border-color: ${({ $color }) => $color};
   color: var(--_color);
   background-color: var(--_bgColor);
   
@@ -55,7 +56,7 @@ export default function Button({ text, variant, color, margin }: ButtonProps) {
         type='button'
         $margin={margin}
         $variant={variant ?? 'outlined'}
-        color={color ?? 'white'}
+        $color={color ?? 'white'}
       >
         {text}
       </StyledButton>
