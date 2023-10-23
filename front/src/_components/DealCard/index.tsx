@@ -2,6 +2,7 @@ import { css, styled } from 'styled-components';
 import TextSpan from '@/_components/DealCard/TextSpan';
 import ContentGrid from '@/_components/ContentGrid';
 import { name } from 'next/dist/telemetry/ci-info';
+import numberToCurrency from '@/_utils/NumberToCurrency';
 
 const Article = styled.article<{ $image?: string }>`
   width: 630px;
@@ -63,10 +64,10 @@ export default function DealCard({
       >
         <TextSpan isTitle={true}
                   text={name} />
-        <TextSpan text={`${totalPrice} Dhs`} />
+        <TextSpan text={`${numberToCurrency(totalPrice)}`} />
         <TextSpan text={`Yield ${yieldPercent}%`} />
         <TextSpan text={`Sold ${soldPercent}%`} />
-        <TextSpan text={`Tiket - ${price} Dhs`} />
+        <TextSpan text={`Tiket - ${numberToCurrency(price)}`} />
         <TextSpan text={`Days left ${daysLeft}`} />
       </ContentGrid>
     </Article>

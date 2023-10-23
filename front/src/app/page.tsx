@@ -6,10 +6,49 @@ import Paragraph from '@/_components/Paragraph';
 import SubHeading from '@/_components/SubHeading';
 import ContentGrid from '@/_components/ContentGrid';
 import DealCard from '@/_components/DealCard';
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '@/_utils/redux/hooks';
+import axios from 'axios';
+import { addDeal } from '@/_utils/redux/slices/dealSlice';
+import { Deal, DealDTO } from '@/_utils/Types';
+import { DateDiffInDays } from '@/_utils/DateDiffInDays';
 
+const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3001';
 export default function Home() {
-  return (
+  const dispatch = useAppDispatch();
+  const deals = useAppSelector(({ deal }) => deal.deals);
 
+  useEffect(() => {
+    const controller = new AbortController();
+
+    deals.length == 0 && axios.get(`${serverUrl}/deals`, {
+      signal: controller.signal,
+    }).then(resp => {
+      if (resp.status == 200) {
+        resp.data.forEach((dto: DealDTO) => {
+          let deal: Deal = {
+            name: dto.name,
+            image: dto.image,
+            price: dto.price,
+            yieldPercent: dto.yield,
+            soldPercent: Math.round(dto.soldCount / (dto.count / 100)),
+            totalPrice: dto.count * dto.price,
+            daysLeft: DateDiffInDays(new Date(), new Date(dto.endDate)),
+          };
+          dispatch(addDeal(deal));
+        });
+        console.log(resp.data);
+      } else {
+        console.log(resp.status, resp.statusText);
+      }
+    }).catch(err => {
+      console.log(err);
+    });
+
+    return () => controller.abort();
+  }, []);
+
+  return (
     <main>
       <Section image='/Main.png' height='calc(100vh - 80px)'>
         <Heading margin='10px' text='The chemical  negatively charged' />
@@ -21,17 +60,17 @@ export default function Home() {
       <Section bgColor='white'>
         <SubHeading text='Open Deals' width='1280px' color='#B29F7E' margin='50px 0 20px' />
         <ContentGrid width='1280px' gap='20px'>
-          {[1, 2, 3, 4].map((i) =>
+          {deals.map((deal) =>
             <DealCard
-              key={i}
-              image={`/Card${i}.png`}
-              name='The Marina Torch'
-              price={60000}
-              yieldPercent={9.25}
-              soldPercent={75}
-              daysLeft={150}
-              totalPrice={6500000}
-            />)}{/* todo load from db*/}
+              key={deal.name}
+              image={deal.image}
+              name={deal.name}
+              price={deal.price}
+              yieldPercent={deal.yieldPercent}
+              soldPercent={deal.soldPercent}
+              daysLeft={deal.daysLeft}
+              totalPrice={deal.totalPrice}
+            />)}
         </ContentGrid>
       </Section>
     </main>
