@@ -25,4 +25,16 @@ export class UserController {
     return this.userService.createUser(userData);
   }
 
+  @Post('login')
+  async signinUser(
+    @Body() userData: { email: string, password: string },
+  ): Promise<User | false> {
+    const userFromDb = this.userService.findUserExact(userData);
+    if (userFromDb) {
+      return userFromDb;
+    } else {
+      return false;
+    }
+  }
+
 }

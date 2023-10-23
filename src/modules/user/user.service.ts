@@ -53,4 +53,15 @@ export class UserService {
       where,
     });
   }
+
+  async findUserExact(data: Prisma.UserCreateInput): Promise<User> {
+    return this.prisma.user.findFirst({
+      where: {
+        AND: {
+          email: data.email,
+          password: data.password,
+        },
+      },
+    });
+  }
 }
