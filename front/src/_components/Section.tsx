@@ -6,9 +6,13 @@ const StyledSection = styled.section<{
   $image?: string,
   $bgColor?: string,
   $height?: string
+  $width?: string
+  $flexGrow?: string
 }>`
   height: ${({ $height }) => $height || '1024px'};
   ${({ $bgColor }) => $bgColor && css`background-color: ${$bgColor}`};
+  ${({ $width }) => $width && css`width: ${$width}`};
+  ${({ $flexGrow }) => $flexGrow && css`flex-grow: ${$flexGrow}`};
 
   overflow: hidden;
   display: flex;
@@ -41,12 +45,17 @@ const StyledSection = styled.section<{
 type SectionProps = Size & Color & {
   children?: React.ReactNode,
   image?: string,
+  flexGrow?: string,
 }
-export default function Section({ children, image, height, bgColor }: SectionProps) {
+export default function Section({ children, image, height, bgColor, width, flexGrow }: SectionProps) {
   return (
-    <StyledSection $image={image}
-                   $height={height}
-                   $bgColor={bgColor}>
+    <StyledSection
+      $image={image}
+      $height={height}
+      $bgColor={bgColor}
+      $width={width}
+      $flexGrow={flexGrow}
+    >
       {children}
     </StyledSection>
   );

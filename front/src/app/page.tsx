@@ -6,7 +6,6 @@ import Paragraph from '@/_components/Paragraph';
 import SubHeading from '@/_components/SubHeading';
 import ContentGrid from '@/_components/ContentGrid';
 import DealCard from '@/_components/DealCard';
-import TextSpan from '@/_components/DealCard/TextSpan';
 
 export default function Home() {
   return (

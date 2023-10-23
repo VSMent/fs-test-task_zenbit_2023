@@ -3,11 +3,7 @@ import { RelativeDisplacement, Size } from '@/_utils/CommonCssAttributes';
 import React from 'react';
 
 type ButtonStyles = 'outlined' | 'filled'
-type ButtonProps = RelativeDisplacement & Size & {
-  text: string,
-  variant?: ButtonStyles,
-  color?: string,
-}
+
 const StyledButton = styled.button<{
   $variant: ButtonStyles,
   $color: string,
@@ -34,7 +30,7 @@ const StyledButton = styled.button<{
   border-color: ${({ $color }) => $color};
   color: var(--_color);
   background-color: var(--_bgColor);
-  
+
   ${({ $margin }) => $margin && css`margin: ${$margin}`};
 
   &:hover {
@@ -49,7 +45,14 @@ const StyledButton = styled.button<{
     margin-left: 10px;
   }
 `;
-export default function Button({ text, variant, color, margin }: ButtonProps) {
+
+type ButtonProps = RelativeDisplacement & Size & {
+  text: string,
+  variant?: ButtonStyles,
+  color?: string,
+  onClick?: () => void
+}
+export default function Button({ text, variant, color, margin, onClick }: ButtonProps) {
   return (
     <>
       <StyledButton
@@ -57,6 +60,7 @@ export default function Button({ text, variant, color, margin }: ButtonProps) {
         $margin={margin}
         $variant={variant ?? 'outlined'}
         $color={color ?? 'white'}
+        onClick={onClick}
       >
         {text}
       </StyledButton>

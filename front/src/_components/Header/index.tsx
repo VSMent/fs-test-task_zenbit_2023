@@ -2,6 +2,7 @@
 import { styled } from 'styled-components';
 import Logo from '@/_components/Header/Logo';
 import Button from '@/_components/Button';
+import { useRouter } from 'next/navigation';
 
 const Nav = styled.nav`
   height: 80px;
@@ -17,7 +18,10 @@ const Nav = styled.nav`
   box-shadow: 0 10px 40px 0 #0000000F, 0 2px 10px 0 #0000001A;
 `;
 
+type HeaderProps = {}
+
 export default function Header() {
+  const router = useRouter();
   const isLoggedIn = false;
   return (
     <header>
@@ -26,8 +30,17 @@ export default function Header() {
         {isLoggedIn
           ? <div>links</div>
           : <div>
-            <Button text='Log In' color='#B29F7E' />
-            <Button text='Sign Up' variant='filled' color='#B29F7E' />
+            <Button
+              text='Log In'
+              color='#B29F7E'
+              onClick={() => {router.push('/signin');}}
+            />
+            <Button
+              text='Sign Up'
+              variant='filled'
+              color='#B29F7E'
+              onClick={() => {router.push('/signin?register');}}
+            />
           </div>}
       </Nav>
     </header>
