@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import ReduxProvider from '@/_components/ReduxProvider';
 import Header from '@/_components/Header';
-import SectionWithImage from '@/_components/Section';
+import StyledComponentsRegistry from '@/_components/Registry';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,8 +21,12 @@ export default function RootLayout({
   return (
     <html lang='en'>
     <body className={inter.className}>
-    <Header />
-    {children}
+    <StyledComponentsRegistry>
+      <ReduxProvider>
+        <Header />
+        {children}
+      </ReduxProvider>
+    </StyledComponentsRegistry>
     </body>
     </html>
   );
