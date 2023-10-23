@@ -12,8 +12,8 @@ import axios from 'axios';
 import { addDeal } from '@/_utils/redux/slices/dealSlice';
 import { Deal, DealDTO } from '@/_utils/Types';
 import { DateDiffInDays } from '@/_utils/DateDiffInDays';
+import { serverUrl } from '@/_utils/Constants';
 
-const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3001';
 export default function Home() {
   const dispatch = useAppDispatch();
   const deals = useAppSelector(({ deal }) => deal.deals);

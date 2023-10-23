@@ -4,6 +4,7 @@ import Logo from '@/_components/Header/Logo';
 import Button from '@/_components/Button';
 import { useRouter } from 'next/navigation';
 import Link from '@/_components/Header/Link';
+import { useAppSelector } from '@/_utils/redux/hooks';
 
 const Nav = styled.nav`
   height: 80px;
@@ -23,12 +24,13 @@ type HeaderProps = {}
 
 export default function Header() {
   const router = useRouter();
-  const isLoggedIn = true;
+  const currentUser = useAppSelector(({ user }) => user.currentUser);
+
   return (
     <header>
       <Nav>
         <Logo />
-        {isLoggedIn
+        {currentUser
           ? <>
             <div>
               <Link text='Links' href='#' />

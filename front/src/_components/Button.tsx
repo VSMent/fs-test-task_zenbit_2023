@@ -8,6 +8,7 @@ const StyledButton = styled.button<{
   $variant: ButtonStyles,
   $color: string,
   $margin?: string
+  $width?: string
 }>`
   --_color: ${({ $variant, $color }) => $variant === 'outlined' ? $color : 'white'};
   --_bgColor: ${({ $variant, $color }) => $variant === 'outlined' ? 'transparent' : $color};
@@ -19,7 +20,7 @@ const StyledButton = styled.button<{
   letter-spacing: 0;
   text-align: center;
 
-  width: 160px;
+  width: ${({ $width }) => $width ? $width : '160px'};
   height: 44px;
   padding: 11px 0;
   cursor: pointer;
@@ -52,7 +53,7 @@ type ButtonProps = RelativeDisplacement & Size & {
   color?: string,
   onClick?: () => void
 }
-export default function Button({ text, variant, color, margin, onClick }: ButtonProps) {
+export default function Button({ text, variant, color, margin, onClick, width }: ButtonProps) {
   return (
     <>
       <StyledButton
@@ -60,6 +61,7 @@ export default function Button({ text, variant, color, margin, onClick }: Button
         $margin={margin}
         $variant={variant ?? 'outlined'}
         $color={color ?? 'white'}
+        $width={width}
         onClick={onClick}
       >
         {text}
