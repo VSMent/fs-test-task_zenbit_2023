@@ -3,6 +3,7 @@ import { styled } from 'styled-components';
 import Logo from '@/_components/Header/Logo';
 import Button from '@/_components/Button';
 import { useRouter } from 'next/navigation';
+import Link from '@/_components/Header/Link';
 
 const Nav = styled.nav`
   height: 80px;
@@ -22,13 +23,28 @@ type HeaderProps = {}
 
 export default function Header() {
   const router = useRouter();
-  const isLoggedIn = false;
+  const isLoggedIn = true;
   return (
     <header>
       <Nav>
         <Logo />
         {isLoggedIn
-          ? <div>links</div>
+          ? <>
+            <div>
+              <Link text='Links' href='#' />
+              <Link text='to' href='#' />
+              <Link text='user' href='#' />
+              <Link text='available' href='#' />
+              <Link text='pages' href='#' />
+            </div>
+            <div>
+              <Button
+                text='Sign Out'
+                color='#B29F7E'
+                onClick={() => {console.log('sign out');}}
+              />
+            </div>
+          </>
           : <div>
             <Button
               text='Log In'
